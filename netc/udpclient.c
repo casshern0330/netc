@@ -1,0 +1,33 @@
+#include "unp.h"
+
+int main(int argc,char *argv[])
+{
+	int sockfd;
+	struct sockaddr_in servaddr;
+	char line[MAXLINE];
+	
+	if(argc != 2)
+		err_quit("usage:ucpcli <IPADDR>");
+	bzero(&servaddr,sizeof(servaddr));
+	servaddr.sin_family = AF_INET;
+	servaddr.sin_port = htons(SERV_PORT);
+	inet_pton(AF_INET,argv[1],&servaddr.sin_addr);
+	
+	sockfd = Socket(AF_INET,SOCK_DGRAM,0);
+	dg_cli(sockfd,(SA*)servaddr,sizeof(servaddr));
+	exit(0);
+}
+
+
+void dg_cli(int sockfd,struct sockaddr *pservaddr,socklen_t socklen)
+{
+	int nread;
+	char sendline[MAXLINE],recvline[MAXLINE];
+	
+	while(Fgets(sendline,MAXLINE,sockfd) == NULL)
+	{
+		Sendto(sockfd,sendline,strlen(sendline),0,pservaddr,servlen);
+		nread = Recvfrom(sockfd,sendline,MAXLINE,0,NULL,NULL);
+		Fputs(sendline,stdout);
+	}
+}

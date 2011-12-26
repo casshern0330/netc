@@ -15,5 +15,11 @@ client:client.o
 server:server.o
 	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
 
+udpclient:udpclient.o
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
+
+udpserver:udpserver.o
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
+
 clean:
 	rm -rf *.o
