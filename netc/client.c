@@ -6,7 +6,6 @@ void str_cli(FILE *fp,int sockfd);
 int main(int argc,char *argv[])
 {
 	int sockfd;
-	socklen_t socklen = 0;
 	struct sockaddr_in servaddr;
 	
 	if(argc != 2)

@@ -2,19 +2,18 @@ HOME = /home/casshern
 INCLUDE = -I$(HOME)/include
 LIBS = -L$(HOME)/lib -lunp
 CFLAGS = -g -O2 -Wall $(INCLUDE)
+BINDIR=./bin
+
+all:hello client server
 
 hello:hello.o
-	$(CC) $(CFLAGS) -o $@ $?
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $?
 
 client:client.o
-	$(CC) $(CFLAGS) -o $@ $? $(LIBS)
-
-
-#client.o:client.c
-#	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -c -o client.o client.c 
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
 
 server:server.o
-	$(CC) $(CFLAGS) -o $@ $? $(LIBS)
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
 
 clean:
 	rm -rf *.o
