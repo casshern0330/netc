@@ -9,6 +9,6 @@ char** my_addr(int *addrtype) {
 		return (NULL);
 	if((ht = gethostbyname(myname.nodename)) == NULL)
 		return (NULL);
-	*addrtype = ht->addrtype;
+	*addrtype = ht->h_addrtype;
 	return ht->h_addr_list;
 }
