@@ -1,3 +1,26 @@
 #this is a README file in netc
 
 #this is use to test 'git rm'
+
+struct addrinfo{
+	int ai_flags;
+	int ai_family;	//AF_INET | AF_INET6
+	int ai_socktype;	//SOCK_STREAM | SOCK_DGRAM
+	int ai_protocol;	//IPPROTO_IPV4 | IPPROTO_IPV6
+	size_t ai_addrlen;	//length of ai_len;
+	char *ai_canonname;
+	struct sockaddr *ai_addr;
+	struct addrinfo *next;
+};
+
+struct sockaddr_in{
+	int sin_family;
+	int sin_port;
+	struct in_addr sin_addr;
+};
+
+struct sockaddr_in6{
+	int sin6_family;
+	int sin6_port;
+	struct in6_addr sin6_addr;
+};
