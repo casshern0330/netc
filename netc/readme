@@ -2,8 +2,94 @@
 
 #this is use to test 'git rm'
 
+struct sockaddr_in{
+	uint8_t sin_len;
+	int sin_family;
+	int sin_port;
+	struct in_addr sin_addr;
+};
+
+struct in_addr{
+	in_addr_t s_addr;	//typedef uint32_t in_addr_t;
+};
+
+struct sockaddr_in6{
+	uint8_t sin6_len;
+	int sin6_family;
+	int sin6_port;
+	struct in6_addr sin6_addr;
+};
+
+struct in6_addr{
+	uint8_t s6_addr[16];	//
+};
+
+
+struct sockaddr{
+	uint_t sa_len;
+	sa_family_t sa_family;
+	char sa_data[14];
+};
+
+struct hostent *gethostbyname(const char *hostname);
+//return 非NULL == success,NULL == error
+
+struct hostent{
+	char *h_name;
+	char **h_aliases;
+	int h_addrtype;		//AF_INET | AF_INET6
+	int h_length;		//4 | 16
+	char **h_addr_list;
+};
+
+struct hostent *gethostbyaddr(const char *hostaddr,sszie_t addrlen,int family);
+//return 非NULL == success,NULL == error;
+
+struct utsname{
+	char sysname[_UTS_NAMESIZE];
+	char nodename[_UTS_NODESIZE];
+	char release[_UTS_NAMESIZE];
+	char version[_UTS_NAMESIZE];
+	char machine[_UTS_NAMESIZE];
+};
+
+int uname(struct utsname *name);
+//return 0 == success, 非0 == error
+
+struct servent{
+	char *s_name;
+	char **s_aliases;
+	uint16_t s_port;
+	char *s_proto;
+};
+
+struct servent *getservbyname(const char *servname,const char *protoname);
+//return 非NULL == success,NULL == error
+//protoname == tcp || udp
+
+struct servent{
+	char *s_name;
+	char **s_aliases;
+	uint16_t s_port;
+	char *s_proto;
+};
+
+struct hostent{
+	char *h_name;
+	char **h_aliases;
+	int h_addrtype;
+	int h_length;
+	char **h_addr_list;
+};
+
+struct hostent *gethostbyname(const char *hostname);
+struct hostent *gethostbyaddr(const char *servicename,ssize_t addrlen,int family);
+
+res_init();
+_res.options |= RES_USE_INET6
+
 struct addrinfo{
-	int ai_flags;
+	int ai_flags;	//AI_PASSIVE | AI_CANONNAME
 	int ai_family;	//AF_INET | AF_INET6
 	int ai_socktype;	//SOCK_STREAM | SOCK_DGRAM
 	int ai_protocol;	//IPPROTO_IPV4 | IPPROTO_IPV6
@@ -13,14 +99,15 @@ struct addrinfo{
 	struct addrinfo *next;
 };
 
-struct sockaddr_in{
-	int sin_family;
-	int sin_port;
-	struct in_addr sin_addr;
-};
+int getaddrinfo(const char *hostname,const char *servicename,const struct addrinfo *hint,struct addrinfo **result);
+//return 0 == success,非0 == error
 
-struct sockaddr_in6{
-	int sin6_family;
-	int sin6_port;
-	struct in6_addr sin6_addr;
-};
+
+
+
+
+
+
+
+
+
