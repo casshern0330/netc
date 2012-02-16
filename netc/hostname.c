@@ -33,3 +33,24 @@ char* inet_ntop(int family,const void *paddr,char *buff,ssize_t size);
 
 void* inet_pton(int family,const char *buff,void *paddr);
 */
+
+int main(int argc,char *argv[]){
+	char **pname,**paddr;
+	char addrstr[INET_ADDRSTRLEN];
+	struct hostent *ht;
+
+	if(argc != 2)
+		err_quit("usage : hostname <hostname>");
+	
+	if((ht = gethostbyname(argv[1])) == NULL){
+		err_sys("error gethostbyname %s",argv[1]);	
+
+	printf("offical name is %s\n",ht->h_name);
+	pname = ht->h_aliases;
+	while(*pname != NULL)
+		printf("alias name is %s\n",*pname++);
+	paddr = ht->h_addr_list;
+	while(*paddr != NULL)
+		printf("address is %s\n",inet_ntop(ht->h_addrtype,*paddr,addr,sizeof(addrstr)));
+	return 0;
+}
