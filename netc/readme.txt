@@ -107,6 +107,35 @@ int getaddrinfo(const char *hostname,const char *servicename,const struct addrin
 
 
 
+<img src="why-vi-img/why-vi-1-1.gif" alt=""/>
+
+bool equiv = equialent(entry.key(),qk.ley);
+if(!entry.used && equialent(entry.key(),qk.ley) && (curcontext & entry.contexts)
+
+
+struct ifconf{
+	char ifc_name[IFNAMSIZ];
+	union{
+		haddr_t ifcu_haddr[IFHADDR];
+		struct ifreq *ifcu_req;
+	}ifc_ifcu;
+};
+
+
+struct ifreq{
+	char ifr_name[IFNAMSIZ];
+	union{
+		struct sockaddr *ifru_addr;	//SIOCGIFCONF
+		struct sockaddr *ifru_brdaddr;  //SIOCGBRDADDR
+		struct sockaddr *ifru_dstaddr;	//SIOCGDSTADDR
+		int flags			//SIOCGIFFLAGS
+	}ifr_ifru;
+};
+
+
+
+
+
 
 
 
