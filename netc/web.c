@@ -26,7 +26,7 @@ void write_get_cmd(struct file *);
 int main(int argc,char *argv[]){
 	int i,fd,nmaxconn,nfiles,maxfd,nconn,flags;
 	char buf[MAXLINE];
-	fd_set rset,wset;
+	fd_set rs,ws;
 
 	if(argc < 4)
 		err_quit("usage : web <#conn> hostname homepage file1 ...");
@@ -41,8 +41,8 @@ int main(int argc,char *argv[]){
 	}
 	home_page(argv[2],argv[3]);
 
-	FD_ZERO(&rset);
-	FD_ZERO(&wset);
+	FD_ZERO(&rs);
+	FD_ZERO(&ws);
 	maxfd = -1;
 	nconn = 0;
 	nleftconn = nlefttoread = nfiles;
@@ -58,6 +58,8 @@ int main(int argc,char *argv[]){
 			nconn++;
 			nleftconn--;
 		}
+		rs = rset;
+		ws = wset;
 		Select(maxfd+1,&rset,&wset,NULL,NULL);
 		
 		for(i=0;i<nfiles;i++){

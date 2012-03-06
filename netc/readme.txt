@@ -134,11 +134,32 @@ struct ifreq{
 
 
 
+struct sockaddr_dl{
+	uint8_t	sdl_len;
+	sa_family_t sdl_family;
+	uint16_t sdl_type;	/RTM_GET | RTM_ADD | RTM_DEL | RTM_CHANGE
+	uint8_t	sdl_index;
+	uint8_t	sdl_nlen;
+	uint8_t sdl_slen;
+	uint8_t sdl_alen;
+	char	sdl_data[12];
+}
+
+struct rt_msghdr{
+	uint8_t	rtm_msglen;
+	u_char	rtm_version;
+	u_char	rtm_type;
+	u_short rtm_index;
+	int	rtm_flags;
+	int	rtm_addrs;
+	pid_t	rtm_pid;
+	int	rtm_seq;
+	int	rtm_errno;
+	int	rtm_ints;
+};
 
 
 
 
-
-
-
-
+int sysctl(int *name,size_t namelen,void *oldp,size_t *oldplen,void *newp,size_t newplen);
+//return  0 == success, -1 == error
