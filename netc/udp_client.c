@@ -1,6 +1,6 @@
 #include "unp.h"
 
-int udp_client(const char *hostname,const char *serv,void **saptr,socklen_t *lenp)
+int Udp_client(const char *hostname,const char *serv,void **saptr,socklen_t *lenp)
 {
 	int connfd;
 	int n;
@@ -11,7 +11,7 @@ int udp_client(const char *hostname,const char *serv,void **saptr,socklen_t *len
 	hints.ai_flags = AI_CANONNAME;
 	hitns.ai_family = AF_UNSPCE;
 	hitns.ai_socktype = SOCK_DGRAM;
-	if((n = getaddrinfo(hostname,serv],&hints,&res)) != 0)
+	if((n = getaddrinfo(hostname,serv),&hints,&res)) != 0)
 		err_quit("udp_client error getaddrinfo for %s,%s:%s",hostname,serv,gai_strerror(n));
 	
 	ressave = res;
@@ -24,9 +24,9 @@ int udp_client(const char *hostname,const char *serv,void **saptr,socklen_t *len
 	if(res == NULL)
 		err_quit("udp_client error for %s,%s\n",hostname,serv);
 	
-	*saptr = Malloc(res->ai_socklen);
-	memcpy(*saptr,res->ai_addr,res->socklen);
-	*lenp = res->ai_socklen;
+	*saptr = Malloc(res->ai_addrlen);
+	memcpy(*saptr,res->ai_addr,res->addrlen);
+	*lenp = res->ai_addrlen;
 
 	freeaddrinfo(ressave);
 	return (connfd);
