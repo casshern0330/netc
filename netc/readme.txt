@@ -184,3 +184,9 @@ CMSG_SPACE(sizeof(data));
 CMSG_DATA(*cmsghdr);
 CMSG_FIRSTHDR(struct msghdr *msg);
 CMSG_NEXTHDR(struct msghdr *msg,struct cmsgdhr *cmsg);
+
+
+struct in_pktinfo{
+	struct in_addr ipi_addr;
+	int ipi_ifindex;
+};

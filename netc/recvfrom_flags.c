@@ -70,3 +70,53 @@ size_t Recvmsg_flags(int sockfd,void *ptr,size_t nbytes,unsigned int *flagsp
         cmsg->cmsg_len,cmsg->cmsg_level,cmsg->cmsg_type);
     return (*flagsp);
 }
+
+void dg_echo(int sockfd,SA *pcliaddr,socklen_t clilen)
+{
+	int flags;
+	const in on = 1;
+	socklen_t len;
+	size_t n;
+	char mesg[MAXLINE],str[INET6_ADDRSTRLEN],ifname[IFNAMSIZ];
+	struct in_addr in_zero;
+	struct in_pktinfo pktinfo;
+	#ifdef	IP_RECVDSTADDR
+	if(setsockopt(sockfd,IPPROTO_IP,IP_RECVDSTADDR,&on,sizeof(on)) < 0)
+		err_ret("setsockopt of IP_RECVDSTADDR");
+	#endif
+
+	#ifdef	IP_RECVIF
+	if(setsockopt(sockfd,IPPROTO_IP,IP_RECVIF,&on,sizeof(on)) <0)
+		err_ret("setsockopt of IP_RECVIF");
+	#endif
+	bzero(&in_zero,sizeof(struct in_addr));
+
+	for(;;){
+		len = clilen;
+		flags = 0;
+		n = Recvfrom_flags(sockfd,mesg,MAXLINE,&flags,
+			pcliaddr,&len,&pktinfo);
+		if(memcmp(&pktinfo.ipi_addr,&in_zero,sizeof(in_zero)) != 0)
+
+		if(pktinfo.ipi_ifindex > 0)
+			printf(",recv i/f = %s",if_indextoname(pktinfo.ipi_ifindex,ifname);
+		#ifdef	MSG_TRUNC
+		if(flags & MSG_TRUNC)
+			printf("datagram truncated");
+		#endif
+		#ifdef	MSG_CTRUNC
+		if(flags & MSG_CTRUNC)
+			printf("control into truncated");
+		#endif
+		#ifdef	MSG_BCAST
+		if(flags & MSG_BCAST)
+			printf("broadcast");
+		#endif
+		#ifdef	MSG_MCAST
+		if(flags & MSG_MCAST)
+			printf("multicast");
+		#endif
+		printf("\n");
+		Sendto(sockfd,mesg,n,0,pcliaddr,len);
+	}
+}
