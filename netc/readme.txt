@@ -163,3 +163,24 @@ struct rt_msghdr{
 
 int sysctl(int *name,size_t namelen,void *oldp,size_t *oldplen,void *newp,size_t newplen);
 //return  0 == success, -1 == error
+
+struct msghdr{
+	char *msg_name;
+	size_t msg_namelen;
+	struct cmsghdr *msg_control;
+	size_t msg_controllen;
+	struct iovec *msg_iov;
+	size_t msg_iovlen;
+};
+
+struct cmsghdr{
+	socklen_t cmsg_len;
+	int	cmsg_level;	//IPPROTO_IP	|	IPPROTO_IPV6
+	int	cmsg_type;	//IP_RECVMSGADDR	|	IP_RECVADDR
+	char	*cmsg_data;
+};
+
+CMSG_SPACE(sizeof(data));
+CMSG_DATA(*cmsghdr);
+CMSG_FIRSTHDR(struct msghdr *msg);
+CMSG_NEXTHDR(struct msghdr *msg,struct cmsgdhr *cmsg);
