@@ -190,3 +190,43 @@ struct in_pktinfo{
 	struct in_addr ipi_addr;
 	int ipi_ifindex;
 };
+
+
+
+struct rtt_info{
+	float	rtt_rtt;
+	float	rtt_srtt;	//smoothed RTT
+	float	rtt_srttval;	//smothed mean deviation
+	float	rtt_rto;
+	int	rtt_nrexmt;
+	uint32_t	rtt_base;	//#sec since 1/1/1970
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
