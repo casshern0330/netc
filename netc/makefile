@@ -21,5 +21,9 @@ udpclient:udpclient.o
 udpserver:udpserver.o
 	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
 
+mygetaddrinfo:mygetaddrinfo.o
+	rm -rf $(BINDIR)/$@
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $? $(LIBS)
+
 clean:
 	rm -rf *.o
