@@ -106,6 +106,17 @@ int getaddrinfo(const char *hostname,const char *servicename,const struct addrin
 //return 0 == success,·Ç0 == error
 
 
+struct ifi_info{
+	char ifi_name[IFI_NAME];
+	u_char ifi_haddr[IFI_HADDR];
+	u_short ifi_hlen;
+	short ifi_flags;
+	short ifi_myflags;
+	struct sockaddr *ifi_addr;
+	struct sockaddr *ifi_brdaddr;
+	struct sockaddr *ifi_dstaddr;
+	struct ifi_info *ifi_next;
+}
 
 <img src="why-vi-img/why-vi-1-1.gif" alt=""/>
 
@@ -191,6 +202,10 @@ struct in_pktinfo{
 	int ipi_ifindex;
 };
 
+struct in6_pktinfo{
+	struct in6_addr ipi6_addr;
+	int	ipi6_ifindex;
+};
 
 
 struct rtt_info{
