@@ -1,8 +1,11 @@
-HOME = /home/casshern
-INCLUDE = -I$(HOME)/include
-LIBS = -L$(HOME)/lib -lunp
+#HOME = /home/casshern
+UNPHOME = /cygdrive/d/library/unpv13e
+INCLUDE = -I$(UNPHOME)/include
+LIBS = -L$(UNPHOME) -lunp
 CFLAGS = -g -O2 -Wall $(INCLUDE)
 BINDIR=./bin
+
+CC = gcc
 
 all:hello client server
 
